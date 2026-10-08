@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Departure } from '@/lib/trains/types';
-import { LINES } from '@/lib/trains/lines';
+import { LINE_COLORS } from '@/lib/trains/lines';
 import { formatCountdown, formatDuration, formatTimeRange, isUpcoming, minutesUntil } from '@/lib/trains/format';
 import { TrainIcon } from './Icons';
 
@@ -14,20 +14,20 @@ export default function DepartureCard({ departure, now, upcomingThresholdMin }: 
   const departs = new Date(departure.departsAt);
   const arrives = new Date(departure.arrivesAt);
   const minutes = minutesUntil(departs, now);
-  const line = LINES[departure.line];
 
   return (
     <li className="card" data-upcoming={isUpcoming(minutes, upcomingThresholdMin)}>
       <div className="row card-top">
         <span className="card-time numeric">{formatTimeRange(departs, arrives)}</span>
         <span className="card-duration numeric">({formatDuration(minutesUntil(arrives, departs))})</span>
-        {departure.track && <span className="card-track numeric push">Track {departure.track}</span>}
+        {/* Tracks (especially at Grand Central) are often posted only shortly before departure */}
+        <span className="card-track numeric push">Track {departure.track ?? 'TBD'}</span>
       </div>
 
       <span
         className="badge"
-        style={{ '--badge-color': line.color } as CSSProperties}
-        title={`${line.name} Line`}
+        style={{ '--badge-color': LINE_COLORS[departure.line] } as CSSProperties}
+        title={`${departure.lineName} Line · Train ${departure.id}`}
       >
         <TrainIcon />
         {departure.terminal}

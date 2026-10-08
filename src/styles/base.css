@@ -89,6 +89,21 @@ button {
   color: var(--color-text-muted);
 }
 
+/* Primary action button */
+.button {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  transition: background var(--duration-fast);
+}
+
+.button:hover {
+  background: var(--color-brand-strong);
+}
+
 /* Colored pill for a train line, e.g. <span class="badge" style="--badge-color: var(--line-hudson)"> */
 .badge {
   display: inline-flex;

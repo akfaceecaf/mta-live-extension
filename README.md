@@ -16,7 +16,8 @@ Load it in Chrome:
 
 1. Open `chrome://extensions` and turn on **Developer mode** (top right).
 2. Click **Load unpacked** and select the `dist/` folder.
-3. Open any web page. A card with the next train (currently **example data**) appears in the top-right corner. **View more** shows the following trains. The › button collapses it to a tab on the screen edge, and clicking the tab brings it back.
+3. Click the extension's toolbar icon (or **Open settings** in the popup) and choose your route, e.g. New Haven → Grand Central.
+4. Open any web page. A card with the next live train appears in the top-right corner. **View more** shows the following trains. The › button collapses it to a tab on the screen edge, and clicking the tab brings it back.
 
 After a code change, `npm run dev` rebuilds automatically, but **Chrome doesn't reload it for you**:
 
@@ -30,6 +31,7 @@ After a code change, `npm run dev` rebuilds automatically, but **Chrome doesn't 
 | `npm run dev` | Watch mode build into `dist/` |
 | `npm run build` | Production build into `dist/` |
 | `npm run typecheck` | Type-check without building |
+| `npm run gtfs:sync` | Refresh the MTA timetable snapshot |
 
 ## How it fits together
 
@@ -49,9 +51,10 @@ src/lib/
   settings.ts                 User settings (e.g. "departing soon" minutes) with defaults
   useStoredState.ts           React hook: state saved in chrome.storage and synced across tabs
   useNow.ts                   React hook: current time, refreshed every minute
-  trains/                     Display model, line colors, time formatting, example data
+  trains/                     Display model, line colors, time formatting
   messaging.ts                Typed messages between content script and background
-  mta/feed.ts                 Fetches and decodes MTA GTFS-Realtime (protobuf) feeds
+  mta/rail/                   Metro-North: feed decoding (gtfs-realtime-bindings + MTA track extension), timetable lookups, route matching
+scripts/sync-gtfs.ts          Regenerates the timetable snapshot (npm run gtfs:sync)
   env.ts                      Typed access to VITE_* env vars
 ```
 
@@ -61,7 +64,10 @@ There are two Vite configs because Chrome loads content scripts as classic scrip
 
 ## Data source
 
-Metro-North real-time data comes from the MTA's [GTFS-Realtime feed](https://api.mta.info/), which doesn't need an API key. The real-time feed only holds trip IDs and delays. Station names and scheduled times come from MTA's static GTFS data, which the MTA features will need to add.
+Two MTA sources, neither needs an API key:
+
+- **Live:** the Metro-North [GTFS-Realtime feed](https://api.mta.info/), which has predicted departure and arrival times and tracks for trains running in the next few hours. The background worker fetches it at most every 30 seconds.
+- **Timetable:** MTA's static GTFS zip, used for station names, line names and peak/off-peak. `npm run gtfs:sync` turns it into a small `src/lib/mta/rail/static.json` that ships with the extension. Re-run it when MTA publishes a new schedule.
 
 ## Migrating to WXT later
 

@@ -70,7 +70,9 @@
   list-style: none;
 }
 
-.empty {
+/* Status text: loading, empty, error, "choose a route" */
+.message {
+  align-items: center;
   padding: var(--space-6) var(--space-4);
   text-align: center;
   font-size: var(--text-sm);

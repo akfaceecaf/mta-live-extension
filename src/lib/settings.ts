@@ -2,11 +2,16 @@ import { useStoredState } from './useStoredState';
 
 /** User preferences, saved in chrome.storage.local and shared by every extension context */
 export interface Settings {
+  /** Station IDs (static GTFS stop_id) of the route to track. null until the user picks one. */
+  originId: string | null;
+  destinationId: string | null;
   /** A departure within this many minutes counts as "departing soon": red time, shaking tab */
   upcomingThresholdMin: number;
 }
 
 export const DEFAULT_SETTINGS: Settings = {
+  originId: null,
+  destinationId: null,
   upcomingThresholdMin: 30,
 };
 

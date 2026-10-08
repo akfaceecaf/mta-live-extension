@@ -26,8 +26,6 @@
   --line-hudson: #009b3a;
   --line-harlem: #0039a6;
   --line-new-haven: #ee0034;
-  --line-port-jervis: #ff7900;
-  --line-pascack-valley: #8e258d;
 
   /* ---- Semantic colors (use these in components) ---- */
   --color-surface: var(--white);

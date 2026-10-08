@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useStoredState } from '@/lib/useStoredState';
 import { useSettings } from '@/lib/settings';
 import { useNow } from '@/lib/useNow';
-import { createMockTrip } from '@/lib/trains/mockTrip';
+import { sendMessage } from '@/lib/messaging';
+import { stationName } from '@/lib/mta/rail/staticData';
 import { formatTime, isUpcoming, minutesUntil } from '@/lib/trains/format';
 import DepartureCard from './components/DepartureCard';
 import { ArrowIcon, ChevronIcon } from './components/Icons';
-
-/** Most trains shown in the expanded list */
-const MAX_DEPARTURES = 5;
+import { useLiveTrip } from './useLiveTrip';
 
 export default function App() {
   const [collapsed, setCollapsed, collapsedLoaded] = useStoredState('ui.collapsed', false);
@@ -16,13 +15,14 @@ export default function App() {
   // Compact by default: only the next train. Resets on each page so the popup stays small.
   const [showAll, setShowAll] = useState(false);
   const now = useNow();
-  // Example data until the MTA feed is connected
-  const [trip] = useState(() => createMockTrip());
-  const [updatedAt] = useState(() => new Date());
+  const { originId, destinationId } = settings;
+  const hasRoute = Boolean(originId && destinationId);
+  const live = useLiveTrip(originId, destinationId);
 
-  const departures = trip.departures
-    .filter((d) => minutesUntil(new Date(d.departsAt), now) >= 0)
-    .slice(0, MAX_DEPARTURES);
+  // Between polls, drop trains that have already left
+  const departures = (live.trip?.departures ?? []).filter(
+    (d) => minutesUntil(new Date(d.departsAt), now) >= 0,
+  );
   const visible = showAll ? departures : departures.slice(0, 1);
   const moreCount = departures.length - 1;
   const hasUpcoming = departures.some((d) =>
@@ -31,15 +31,54 @@ export default function App() {
 
   if (!collapsedLoaded || !settingsLoaded) return null;
 
+  const openSettings = () => void sendMessage({ type: 'OPEN_OPTIONS' });
+
+  let body;
+  if (!hasRoute) {
+    body = (
+      <div className="message stack">
+        <p>Choose the route you want to track.</p>
+        <button type="button" className="button" onClick={openSettings}>
+          Open settings
+        </button>
+      </div>
+    );
+  } else if (departures.length > 0) {
+    body = (
+      <ul className="stack" id="mta-live-departures">
+        {visible.map((d) => (
+          <DepartureCard
+            key={d.id}
+            departure={d}
+            now={now}
+            upcomingThresholdMin={settings.upcomingThresholdMin}
+          />
+        ))}
+      </ul>
+    );
+  } else if (live.loading) {
+    body = <p className="message text-muted">Loading trains…</p>;
+  } else if (live.error && !live.trip) {
+    body = <p className="message text-muted">Couldn't reach MTA. Retrying…</p>;
+  } else {
+    body = <p className="message text-muted">No live trains on this route right now.</p>;
+  }
+
   return (
     <div className="mta-live" data-collapsed={collapsed} data-upcoming={hasUpcoming}>
       {/* `inert` keeps the off-screen popup out of keyboard focus and screen readers */}
       <section className="popup" aria-label="Upcoming trains" inert={collapsed}>
         <header className="row popup-header">
           <h2 className="route">
-            <span>{trip.origin}</span>
-            <ArrowIcon />
-            <span>{trip.destination}</span>
+            {hasRoute ? (
+              <>
+                <span>{stationName(originId!)}</span>
+                <ArrowIcon />
+                <span>{stationName(destinationId!)}</span>
+              </>
+            ) : (
+              'MTA Live'
+            )}
           </h2>
           <button
             type="button"
@@ -51,22 +90,7 @@ export default function App() {
           </button>
         </header>
 
-        <div className="departures">
-          {departures.length > 0 ? (
-            <ul className="stack" id="mta-live-departures">
-              {visible.map((d) => (
-                <DepartureCard
-                  key={d.id}
-                  departure={d}
-                  now={now}
-                  upcomingThresholdMin={settings.upcomingThresholdMin}
-                />
-              ))}
-            </ul>
-          ) : (
-            <p className="empty text-muted">No more trains on this route.</p>
-          )}
-        </div>
+        <div className="departures">{body}</div>
 
         {moreCount > 0 && (
           <button
@@ -81,9 +105,17 @@ export default function App() {
           </button>
         )}
 
-        <footer className="popup-footer text-muted">
-          Example data · Updated <span className="numeric">{formatTime(updatedAt)}</span>
-        </footer>
+        {hasRoute && (live.updatedAt || live.error) && (
+          <footer className="popup-footer text-muted">
+            {live.error ? (
+              "Couldn't reach MTA · retrying"
+            ) : (
+              <>
+                Live · Updated <span className="numeric">{formatTime(live.updatedAt!)}</span>
+              </>
+            )}
+          </footer>
+        )}
       </section>
 
       <button
