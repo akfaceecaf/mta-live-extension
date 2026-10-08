@@ -16,7 +16,7 @@ Load it in Chrome:
 
 1. Open `chrome://extensions` and turn on **Developer mode** (top right).
 2. Click **Load unpacked** and select the `dist/` folder.
-3. Open any web page. A small "MTA Live (connected)" box appears in the top-right corner.
+3. Open any web page. A card with the next train (currently **example data**) appears in the top-right corner. **View more** shows the following trains. The › button collapses it to a tab on the screen edge, and clicking the tab brings it back.
 
 After a code change, `npm run dev` rebuilds automatically, but **Chrome doesn't reload it for you**:
 
@@ -41,8 +41,15 @@ src/entrypoints/
     index.tsx                   Mounts React inside a Shadow DOM (isolates CSS from the page)
     App.tsx, style.css
   options/                    Settings page (right-click the extension icon → Options, or click the icon)
+src/styles/
+  tokens.css                  Design tokens: colors, Helvetica type scale, spacing, motion
+  base.css                    Reset, typography defaults, layout/text utility classes
 src/lib/
   storage.ts                  Typed chrome.storage.local helpers (user data stays on this device)
+  settings.ts                 User settings (e.g. "departing soon" minutes) with defaults
+  useStoredState.ts           React hook: state saved in chrome.storage and synced across tabs
+  useNow.ts                   React hook: current time, refreshed every minute
+  trains/                     Display model, line colors, time formatting, example data
   messaging.ts                Typed messages between content script and background
   mta/feed.ts                 Fetches and decodes MTA GTFS-Realtime (protobuf) feeds
   env.ts                      Typed access to VITE_* env vars

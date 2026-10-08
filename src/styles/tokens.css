@@ -1,0 +1,98 @@
+/*
+ * Design tokens: the single source of truth for color, type, spacing and shape.
+ * Components use these variables instead of raw values.
+ *
+ * Declared on both :root (options page) and :host (content script Shadow DOM)
+ * so the same file works in every extension context.
+ *
+ * Sizes use px, not rem: inside a content script, rem is relative to the *host page's*
+ * <html> font size, which sites often change (e.g. 62.5%). px keeps the display consistent everywhere.
+ */
+:root,
+:host {
+  /* ---- Brand palette (raw values, don't use directly in components) ---- */
+  --mta-blue: #0039a6;
+  --mta-blue-dark: #002a7a;
+  --mta-red: #d6001c;
+  --gray-50: #f2f3f5;
+  --gray-100: #eceef2;
+  --gray-200: #d9dde3;
+  --gray-500: #6b7280;
+  --gray-700: #3a404a;
+  --gray-900: #111418;
+  --white: #ffffff;
+
+  /* Metro-North line colors, for line badges and accent strips */
+  --line-hudson: #009b3a;
+  --line-harlem: #0039a6;
+  --line-new-haven: #ee0034;
+  --line-port-jervis: #ff7900;
+  --line-pascack-valley: #8e258d;
+
+  /* ---- Semantic colors (use these in components) ---- */
+  --color-surface: var(--white);
+  --color-surface-muted: var(--gray-50); /* list background behind white train cards */
+  --color-border: var(--gray-200);
+  --color-divider: var(--gray-100);
+  --color-text: var(--gray-900);
+  --color-text-secondary: var(--gray-700);
+  --color-text-muted: var(--gray-500);
+  --color-text-inverse: var(--white);
+  --color-brand: var(--mta-blue);
+  --color-brand-strong: var(--mta-blue-dark);
+  --color-departing-soon: var(--mta-red); /* time highlight for imminent trains */
+  --color-peak: var(--mta-blue);
+  --color-off-peak: var(--gray-500);
+  --color-badge-text: var(--white); /* text on line-color badges */
+  --color-focus: var(--mta-blue);
+
+  /* ---- Typography ---- */
+  /* Helvetica, the typeface of MTA signage. Uses the copy installed on the system (no web font to load). */
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --text-xs: 11px; /* uppercase labels */
+  --text-sm: 13px; /* secondary details: "Off Peak", "in 9 min", "(21 min)", track */
+  --text-md: 15px; /* body, station names, line badges */
+  --text-lg: 17px; /* departure times, e.g. "12:10 PM - 12:30" */
+  --text-xl: 20px; /* section headings */
+  --text-2xl: 28px; /* page titles */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.45;
+  --tracking-label: 0.06em; /* uppercase labels */
+
+  /* ---- Spacing (4px grid) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* ---- Shape & elevation ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px; /* popup card */
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px rgb(0 0 0 / 0.14);
+
+  /* ---- Motion ---- */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms; /* popup slide in/out */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* ---- Layout ---- */
+  --popup-width: 320px;
+  --popup-offset: 16px; /* distance from the viewport corner */
+  --tab-width: 36px; /* collapsed side tab */
+  --tab-height: 56px;
+  --page-max-width: 640px;
+  --z-popup: 2147483647; /* max z-index: stay above anything the host page renders */
+}

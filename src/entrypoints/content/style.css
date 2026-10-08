@@ -1,17 +1,244 @@
 /* Scoped to the Shadow DOM, so these styles don't affect the host page */
-:host {
-  all: initial;
-}
+@import '../../styles/tokens.css';
+@import '../../styles/base.css';
 
+/*
+ * Wrapper only positions its children. pointer-events: none lets clicks pass
+ * through to the page wherever the popup or tab isn't drawn.
+ */
 .mta-live {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  z-index: 2147483647;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #fff;
-  color: #000;
-  font: 13px/1.4 system-ui, sans-serif;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  top: var(--popup-offset);
+  right: 0;
+  z-index: var(--z-popup);
+  pointer-events: none;
+}
+
+.popup,
+.tab {
+  pointer-events: auto;
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    visibility var(--duration-slow);
+}
+
+/* ---- Expanded popup: white rounded card in the top-right corner ---- */
+/* Header and footer stay put; only the departure list scrolls */
+.popup {
+  display: flex;
+  flex-direction: column;
+  margin-right: var(--popup-offset);
+  width: var(--popup-width);
+  max-height: calc(100vh - 2 * var(--popup-offset));
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.popup-header {
+  flex-wrap: nowrap;
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Origin -> Destination */
+.route {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+}
+
+.route svg {
+  color: var(--color-brand);
+  flex-shrink: 0;
+}
+
+.departures {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2);
+  background: var(--color-surface-muted);
+  --stack-gap: var(--space-2);
+}
+
+.departures ul {
+  list-style: none;
+}
+
+.empty {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  font-size: var(--text-sm);
+}
+
+/* "View N more" / "Show less" toggle under the next train */
+.view-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-brand);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  transition: background var(--duration-fast);
+}
+
+.view-more:hover {
+  background: var(--color-surface-muted);
+}
+
+.popup-footer {
+  padding: var(--space-2) var(--space-4);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+}
+
+/* ---- Departure card ---- */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.card .row {
+  align-self: stretch;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  --row-gap: var(--space-1);
+}
+
+.card-time {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  white-space: nowrap;
+}
+
+.card-duration,
+.card-track,
+.card-peak,
+.card-countdown {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.card-peak[data-peak='true'] {
+  color: var(--color-peak);
+  font-weight: var(--weight-semibold);
+}
+
+/* Departing soon: time and countdown turn red */
+.card[data-upcoming='true'] .card-time,
+.card[data-upcoming='true'] .card-countdown {
+  color: var(--color-departing-soon);
+}
+
+.card[data-upcoming='true'] .card-countdown {
+  font-weight: var(--weight-semibold);
+}
+
+.icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  transition: background var(--duration-fast);
+}
+
+.icon-button:hover {
+  background: var(--color-surface-muted);
+  color: var(--color-text);
+}
+
+/* ---- Collapsed: popup slides off the right edge, tab slides in ---- */
+.tab {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: var(--tab-width);
+  height: var(--tab-height);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  background: var(--color-brand);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-card);
+  transform: translateX(100%);
+  visibility: hidden;
+}
+
+.tab:hover {
+  background: var(--color-brand-strong);
+}
+
+.mta-live[data-collapsed='true'] .popup {
+  transform: translateX(calc(100% + var(--popup-offset)));
+  visibility: hidden;
+}
+
+.mta-live[data-collapsed='true'] .tab {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+/* ---- Upcoming train: tab shakes briefly every few seconds ---- */
+/* Uses `translate` (not `transform`) so it doesn't fight the slide transition */
+.mta-live[data-collapsed='true'][data-upcoming='true'] .tab {
+  animation: tab-shake 4s var(--duration-slow) infinite;
+}
+
+@keyframes tab-shake {
+  0%,
+  12%,
+  100% {
+    translate: 0;
+  }
+  2%,
+  6%,
+  10% {
+    translate: -4px;
+  }
+  4%,
+  8% {
+    translate: 3px;
+  }
+}
+
+/* Red dot also signals an upcoming train when motion is reduced (base.css turns animations off) */
+.tab-dot {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-departing-soon);
+  box-shadow: 0 0 0 2px var(--color-surface);
+}
+
+/* ---- Narrow windows: popup spans the top so it never goes off-screen ---- */
+@media (max-width: 480px) {
+  .mta-live {
+    --popup-offset: var(--space-2);
+    left: 0;
+  }
+
+  .popup {
+    width: auto;
+    margin-left: var(--popup-offset);
+  }
 }

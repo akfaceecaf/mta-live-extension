@@ -1,0 +1,53 @@
+@import '../../styles/tokens.css';
+@import '../../styles/base.css';
+
+/* Centered single column that adapts to the window width */
+.page {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  --stack-gap: var(--space-6);
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+
+/* White card grouping related settings */
+.panel {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  --stack-gap: var(--space-4);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.field label {
+  font-weight: var(--weight-semibold);
+}
+
+.input {
+  width: 88px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--text-md);
+}
+
+.input:focus-visible {
+  outline-offset: 0;
+  border-color: var(--color-focus);
+}
+
+.hint {
+  font-size: var(--text-sm);
+}
