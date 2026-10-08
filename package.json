@@ -1,0 +1,28 @@
+{
+  "name": "mta-live",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Chrome extension showing a live display of upcoming Metro-North train times",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "dev": "npm run clean && concurrently -k -n pages,content \"vite build --watch --mode development\" \"vite build --watch --mode development -c vite.content.config.ts\"",
+    "build": "npm run clean && vite build && vite build -c vite.content.config.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "gtfs-realtime-bindings": "^2.2.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.4",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.5",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3"
+  }
+}

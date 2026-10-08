@@ -1,0 +1,17 @@
+/* Scoped to the Shadow DOM, so these styles don't affect the host page */
+:host {
+  all: initial;
+}
+
+.mta-live {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2147483647;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  font: 13px/1.4 system-ui, sans-serif;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+}
