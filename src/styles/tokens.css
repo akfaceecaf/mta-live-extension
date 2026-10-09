@@ -39,7 +39,7 @@
   --color-brand: var(--mta-blue);
   --color-brand-strong: var(--mta-blue-dark);
   --color-departing-soon: var(--mta-red); /* time highlight for imminent trains */
-  --color-peak: var(--mta-blue);
+  --color-peak: var(--gray-500); /* same gray as off-peak; peak is distinguished by bold only */
   --color-off-peak: var(--gray-500);
   --color-badge-text: var(--white); /* text on line-color badges */
   --color-focus: var(--mta-blue);

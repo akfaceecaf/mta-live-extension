@@ -1,121 +1,722 @@
 {
- "generatedAt": "2026-10-08T02:54:40.110Z",
+ "generatedAt": "2026-10-09T20:12:31.991Z",
  "source": "https://rrgtfsfeeds.s3.amazonaws.com/gtfsmnr.zip",
  "stations": {
-  "1": "Grand Central",
-  "4": "Harlem-125 St",
-  "9": "Morris Heights",
-  "10": "University Heights",
-  "11": "Marble Hill",
-  "14": "Spuyten Duyvil",
-  "16": "Riverdale",
-  "17": "Ludlow",
-  "18": "Yonkers",
-  "19": "Glenwood",
-  "20": "Greystone",
-  "22": "Hastings-on-Hudson",
-  "23": "Dobbs Ferry",
-  "24": "Ardsley-on-Hudson",
-  "25": "Irvington",
-  "27": "Tarrytown",
-  "29": "Philipse Manor",
-  "30": "Scarborough",
-  "31": "Ossining",
-  "33": "Croton-Harmon",
-  "37": "Cortlandt",
-  "39": "Peekskill",
-  "40": "Manitou",
-  "42": "Garrison",
-  "43": "Cold Spring",
-  "44": "Breakneck Ridge",
-  "46": "Beacon",
-  "49": "New Hamburg",
-  "51": "Poughkeepsie",
-  "54": "Melrose",
-  "55": "Tremont",
-  "56": "Fordham",
-  "57": "Botanical Garden",
-  "58": "Williams Bridge",
-  "59": "Woodlawn",
-  "61": "Wakefield",
-  "62": "Mt Vernon West",
-  "64": "Fleetwood",
-  "65": "Bronxville",
-  "66": "Tuckahoe",
-  "68": "Crestwood",
-  "71": "Scarsdale",
-  "72": "Hartsdale",
-  "74": "White Plains",
-  "76": "North White Plains",
-  "78": "Valhalla",
-  "79": "Mt Pleasant",
-  "80": "Hawthorne",
-  "81": "Pleasantville",
-  "83": "Chappaqua",
-  "84": "Mt Kisco",
-  "85": "Bedford Hills",
-  "86": "Katonah",
-  "88": "Goldens Bridge",
-  "89": "Purdy's",
-  "90": "Croton Falls",
-  "91": "Brewster",
-  "94": "Southeast",
-  "97": "Patterson",
-  "98": "Pawling",
-  "99": "Appalachian Trail",
-  "100": "Harlem Valley-Wingdale",
-  "101": "Dover Plains",
-  "105": "Mt Vernon East ",
-  "106": "Pelham",
-  "108": "New Rochelle",
-  "110": "Larchmont",
-  "111": "Mamaroneck",
-  "112": "Harrison",
-  "114": "Rye",
-  "115": "Port Chester",
-  "116": "Greenwich",
-  "118": "Cos Cob",
-  "120": "Riverside",
-  "121": "Old Greenwich",
-  "124": "Stamford",
-  "127": "Noroton Heights",
-  "128": "Darien",
-  "129": "Rowayton",
-  "131": "South Norwalk",
-  "133": "East Norwalk",
-  "134": "Westport",
-  "136": "Green's Farms",
-  "137": "Southport",
-  "138": "Fairfield",
-  "140": "Bridgeport",
-  "143": "Stratford",
-  "145": "Milford",
-  "149": "New Haven",
-  "151": "New Haven-State St",
-  "153": "Glenbrook",
-  "154": "Springdale",
-  "155": "Talmadge Hill",
-  "157": "New Canaan",
-  "158": "Merritt 7",
-  "160": "Wilton",
-  "161": "Cannondale",
-  "162": "Branchville",
-  "163": "Redding",
-  "164": "Bethel",
-  "165": "Danbury",
-  "167": "Derby-Shelton",
-  "168": "Ansonia",
-  "169": "Seymour",
-  "170": "Beacon Falls",
-  "171": "Naugatuck",
-  "172": "Waterbury",
-  "176": "Tenmile River",
-  "177": "Wassaic",
-  "184": "Highbridge Yard",
-  "188": "Fairfield-Black Rock",
-  "190": "West Haven",
-  "622": "Yankees-E 153 St",
-  "651": "Springdale MW Facility"
+  "1": {
+   "name": "Grand Central",
+   "routes": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  "4": {
+   "name": "Harlem-125 St",
+   "routes": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  "9": {
+   "name": "Morris Heights",
+   "routes": [
+    "1"
+   ]
+  },
+  "10": {
+   "name": "University Heights",
+   "routes": [
+    "1"
+   ]
+  },
+  "11": {
+   "name": "Marble Hill",
+   "routes": [
+    "1"
+   ]
+  },
+  "14": {
+   "name": "Spuyten Duyvil",
+   "routes": [
+    "1"
+   ]
+  },
+  "16": {
+   "name": "Riverdale",
+   "routes": [
+    "1"
+   ]
+  },
+  "17": {
+   "name": "Ludlow",
+   "routes": [
+    "1"
+   ]
+  },
+  "18": {
+   "name": "Yonkers",
+   "routes": [
+    "1"
+   ]
+  },
+  "19": {
+   "name": "Glenwood",
+   "routes": [
+    "1"
+   ]
+  },
+  "20": {
+   "name": "Greystone",
+   "routes": [
+    "1"
+   ]
+  },
+  "22": {
+   "name": "Hastings-on-Hudson",
+   "routes": [
+    "1"
+   ]
+  },
+  "23": {
+   "name": "Dobbs Ferry",
+   "routes": [
+    "1"
+   ]
+  },
+  "24": {
+   "name": "Ardsley-on-Hudson",
+   "routes": [
+    "1"
+   ]
+  },
+  "25": {
+   "name": "Irvington",
+   "routes": [
+    "1"
+   ]
+  },
+  "27": {
+   "name": "Tarrytown",
+   "routes": [
+    "1"
+   ]
+  },
+  "29": {
+   "name": "Philipse Manor",
+   "routes": [
+    "1"
+   ]
+  },
+  "30": {
+   "name": "Scarborough",
+   "routes": [
+    "1"
+   ]
+  },
+  "31": {
+   "name": "Ossining",
+   "routes": [
+    "1"
+   ]
+  },
+  "33": {
+   "name": "Croton-Harmon",
+   "routes": [
+    "1"
+   ]
+  },
+  "37": {
+   "name": "Cortlandt",
+   "routes": [
+    "1"
+   ]
+  },
+  "39": {
+   "name": "Peekskill",
+   "routes": [
+    "1"
+   ]
+  },
+  "40": {
+   "name": "Manitou",
+   "routes": [
+    "1"
+   ]
+  },
+  "42": {
+   "name": "Garrison",
+   "routes": [
+    "1"
+   ]
+  },
+  "43": {
+   "name": "Cold Spring",
+   "routes": [
+    "1"
+   ]
+  },
+  "44": {
+   "name": "Breakneck Ridge",
+   "routes": [
+    "1"
+   ]
+  },
+  "46": {
+   "name": "Beacon",
+   "routes": [
+    "1"
+   ]
+  },
+  "49": {
+   "name": "New Hamburg",
+   "routes": [
+    "1"
+   ]
+  },
+  "51": {
+   "name": "Poughkeepsie",
+   "routes": [
+    "1"
+   ]
+  },
+  "54": {
+   "name": "Melrose",
+   "routes": [
+    "2"
+   ]
+  },
+  "55": {
+   "name": "Tremont",
+   "routes": [
+    "2"
+   ]
+  },
+  "56": {
+   "name": "Fordham",
+   "routes": [
+    "2",
+    "3",
+    "4"
+   ]
+  },
+  "57": {
+   "name": "Botanical Garden",
+   "routes": [
+    "2"
+   ]
+  },
+  "58": {
+   "name": "Williams Bridge",
+   "routes": [
+    "2"
+   ]
+  },
+  "59": {
+   "name": "Woodlawn",
+   "routes": [
+    "2"
+   ]
+  },
+  "61": {
+   "name": "Wakefield",
+   "routes": [
+    "2"
+   ]
+  },
+  "62": {
+   "name": "Mt Vernon West",
+   "routes": [
+    "2"
+   ]
+  },
+  "64": {
+   "name": "Fleetwood",
+   "routes": [
+    "2"
+   ]
+  },
+  "65": {
+   "name": "Bronxville",
+   "routes": [
+    "2"
+   ]
+  },
+  "66": {
+   "name": "Tuckahoe",
+   "routes": [
+    "2"
+   ]
+  },
+  "68": {
+   "name": "Crestwood",
+   "routes": [
+    "2"
+   ]
+  },
+  "71": {
+   "name": "Scarsdale",
+   "routes": [
+    "2"
+   ]
+  },
+  "72": {
+   "name": "Hartsdale",
+   "routes": [
+    "2"
+   ]
+  },
+  "74": {
+   "name": "White Plains",
+   "routes": [
+    "2"
+   ]
+  },
+  "76": {
+   "name": "North White Plains",
+   "routes": [
+    "2"
+   ]
+  },
+  "78": {
+   "name": "Valhalla",
+   "routes": [
+    "2"
+   ]
+  },
+  "79": {
+   "name": "Mt Pleasant",
+   "routes": [
+    "2"
+   ]
+  },
+  "80": {
+   "name": "Hawthorne",
+   "routes": [
+    "2"
+   ]
+  },
+  "81": {
+   "name": "Pleasantville",
+   "routes": [
+    "2"
+   ]
+  },
+  "83": {
+   "name": "Chappaqua",
+   "routes": [
+    "2"
+   ]
+  },
+  "84": {
+   "name": "Mt Kisco",
+   "routes": [
+    "2"
+   ]
+  },
+  "85": {
+   "name": "Bedford Hills",
+   "routes": [
+    "2"
+   ]
+  },
+  "86": {
+   "name": "Katonah",
+   "routes": [
+    "2"
+   ]
+  },
+  "88": {
+   "name": "Goldens Bridge",
+   "routes": [
+    "2"
+   ]
+  },
+  "89": {
+   "name": "Purdy's",
+   "routes": [
+    "2"
+   ]
+  },
+  "90": {
+   "name": "Croton Falls",
+   "routes": [
+    "2"
+   ]
+  },
+  "91": {
+   "name": "Brewster",
+   "routes": [
+    "2"
+   ]
+  },
+  "94": {
+   "name": "Southeast",
+   "routes": [
+    "2"
+   ]
+  },
+  "97": {
+   "name": "Patterson",
+   "routes": [
+    "2"
+   ]
+  },
+  "98": {
+   "name": "Pawling",
+   "routes": [
+    "2"
+   ]
+  },
+  "99": {
+   "name": "Appalachian Trail",
+   "routes": [
+    "2"
+   ]
+  },
+  "100": {
+   "name": "Harlem Valley-Wingdale",
+   "routes": [
+    "2"
+   ]
+  },
+  "101": {
+   "name": "Dover Plains",
+   "routes": [
+    "2"
+   ]
+  },
+  "105": {
+   "name": "Mt Vernon East ",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "106": {
+   "name": "Pelham",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "108": {
+   "name": "New Rochelle",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "110": {
+   "name": "Larchmont",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "111": {
+   "name": "Mamaroneck",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "112": {
+   "name": "Harrison",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "114": {
+   "name": "Rye",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "115": {
+   "name": "Port Chester",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "116": {
+   "name": "Greenwich",
+   "routes": [
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  "118": {
+   "name": "Cos Cob",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "120": {
+   "name": "Riverside",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "121": {
+   "name": "Old Greenwich",
+   "routes": [
+    "3",
+    "4"
+   ]
+  },
+  "124": {
+   "name": "Stamford",
+   "routes": [
+    "3",
+    "4",
+    "5"
+   ]
+  },
+  "127": {
+   "name": "Noroton Heights",
+   "routes": [
+    "3",
+    "5"
+   ]
+  },
+  "128": {
+   "name": "Darien",
+   "routes": [
+    "3",
+    "5"
+   ]
+  },
+  "129": {
+   "name": "Rowayton",
+   "routes": [
+    "3",
+    "5"
+   ]
+  },
+  "131": {
+   "name": "South Norwalk",
+   "routes": [
+    "3",
+    "5"
+   ]
+  },
+  "133": {
+   "name": "East Norwalk",
+   "routes": [
+    "3"
+   ]
+  },
+  "134": {
+   "name": "Westport",
+   "routes": [
+    "3"
+   ]
+  },
+  "136": {
+   "name": "Green's Farms",
+   "routes": [
+    "3"
+   ]
+  },
+  "137": {
+   "name": "Southport",
+   "routes": [
+    "3"
+   ]
+  },
+  "138": {
+   "name": "Fairfield",
+   "routes": [
+    "3"
+   ]
+  },
+  "140": {
+   "name": "Bridgeport",
+   "routes": [
+    "3",
+    "6"
+   ]
+  },
+  "143": {
+   "name": "Stratford",
+   "routes": [
+    "3",
+    "6"
+   ]
+  },
+  "145": {
+   "name": "Milford",
+   "routes": [
+    "3"
+   ]
+  },
+  "149": {
+   "name": "New Haven",
+   "routes": [
+    "3"
+   ]
+  },
+  "151": {
+   "name": "New Haven-State St",
+   "routes": [
+    "3"
+   ]
+  },
+  "153": {
+   "name": "Glenbrook",
+   "routes": [
+    "4"
+   ]
+  },
+  "154": {
+   "name": "Springdale",
+   "routes": [
+    "4"
+   ]
+  },
+  "155": {
+   "name": "Talmadge Hill",
+   "routes": [
+    "4"
+   ]
+  },
+  "157": {
+   "name": "New Canaan",
+   "routes": [
+    "4"
+   ]
+  },
+  "158": {
+   "name": "Merritt 7",
+   "routes": [
+    "5"
+   ]
+  },
+  "160": {
+   "name": "Wilton",
+   "routes": [
+    "5"
+   ]
+  },
+  "161": {
+   "name": "Cannondale",
+   "routes": [
+    "5"
+   ]
+  },
+  "162": {
+   "name": "Branchville",
+   "routes": [
+    "5"
+   ]
+  },
+  "163": {
+   "name": "Redding",
+   "routes": [
+    "5"
+   ]
+  },
+  "164": {
+   "name": "Bethel",
+   "routes": [
+    "5"
+   ]
+  },
+  "165": {
+   "name": "Danbury",
+   "routes": [
+    "5"
+   ]
+  },
+  "167": {
+   "name": "Derby-Shelton",
+   "routes": [
+    "6"
+   ]
+  },
+  "168": {
+   "name": "Ansonia",
+   "routes": [
+    "6"
+   ]
+  },
+  "169": {
+   "name": "Seymour",
+   "routes": [
+    "6"
+   ]
+  },
+  "170": {
+   "name": "Beacon Falls",
+   "routes": [
+    "6"
+   ]
+  },
+  "171": {
+   "name": "Naugatuck",
+   "routes": [
+    "6"
+   ]
+  },
+  "172": {
+   "name": "Waterbury",
+   "routes": [
+    "6"
+   ]
+  },
+  "176": {
+   "name": "Tenmile River",
+   "routes": [
+    "2"
+   ]
+  },
+  "177": {
+   "name": "Wassaic",
+   "routes": [
+    "2"
+   ]
+  },
+  "184": {
+   "name": "Highbridge Yard",
+   "routes": [
+    "1"
+   ]
+  },
+  "188": {
+   "name": "Fairfield-Black Rock",
+   "routes": [
+    "3"
+   ]
+  },
+  "190": {
+   "name": "West Haven",
+   "routes": [
+    "3"
+   ]
+  },
+  "622": {
+   "name": "Yankees-E 153 St",
+   "routes": [
+    "1"
+   ]
+  },
+  "651": {
+   "name": "Springdale MW Facility",
+   "routes": [
+    "4"
+   ]
+  }
  },
  "routes": {
   "1": {
@@ -533,9 +1134,6 @@
   "4908",
   "4916",
   "4920",
-  "4953",
-  "7111",
-  "7113",
-  "7115"
+  "4953"
  ]
 }

@@ -49,12 +49,28 @@ console.log(`Downloading ${SOURCE}`);
 const res = await fetch(SOURCE);
 if (!res.ok) throw new Error(`Download failed: ${res.status} ${res.statusText}`);
 const files = unzipSync(new Uint8Array(await res.arrayBuffer()), {
-  filter: (f) => ['stops.txt', 'routes.txt', 'trips.txt'].includes(f.name),
+  filter: (f) => ['stops.txt', 'routes.txt', 'trips.txt', 'stop_times.txt'].includes(f.name),
 });
 const read = (name: string) => parseCsv(strFromU8(files[name]));
 
-const stations: Record<string, string> = {};
-for (const s of read('stops.txt')) stations[s.stop_id] = s.stop_name;
+const trips = read('trips.txt');
+
+// Which routes (lines) stop at each station, for the line colors in the station search
+const routeByTrip = new Map(trips.map((t) => [t.trip_id, t.route_id]));
+const routesByStop = new Map<string, Set<string>>();
+for (const st of read('stop_times.txt')) {
+  const route = routeByTrip.get(st.trip_id);
+  if (!route) continue;
+  if (!routesByStop.has(st.stop_id)) routesByStop.set(st.stop_id, new Set());
+  routesByStop.get(st.stop_id)!.add(route);
+}
+
+// Only stations with scheduled Metro-North service; the rest can never show trains
+const stations: Record<string, { name: string; routes: string[] }> = {};
+for (const s of read('stops.txt')) {
+  const routes = routesByStop.get(s.stop_id);
+  if (routes) stations[s.stop_id] = { name: s.stop_name, routes: [...routes].sort() };
+}
 
 const routes: Record<string, { name: string; color: string }> = {};
 for (const r of read('routes.txt')) {
@@ -64,7 +80,7 @@ for (const r of read('routes.txt')) {
 // A train number runs on many dates (one static trip each). A few numbers have
 // mixed peak flags across dates, so use the majority.
 const peakVotes = new Map<string, number>();
-for (const t of read('trips.txt')) {
+for (const t of trips) {
   const vote = t.peak_offpeak === '1' ? 1 : -1;
   peakVotes.set(t.trip_short_name, (peakVotes.get(t.trip_short_name) ?? 0) + vote);
 }

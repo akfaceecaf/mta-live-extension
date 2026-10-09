@@ -20,7 +20,6 @@
   padding: var(--space-5);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
-  box-shadow: var(--shadow-card);
   --stack-gap: var(--space-4);
 }
 
@@ -60,8 +59,66 @@
   gap: var(--space-3);
 }
 
-.select {
+/* ---- Station search (combobox) ---- */
+.station-search {
+  position: relative; /* anchors the results list under the input */
+}
+
+.station-input {
   width: 100%;
+}
+
+.station-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  max-height: 280px;
+  overflow-y: auto;
+  margin-top: var(--space-1);
+  padding: var(--space-1) 0;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card); /* floats above the page, unlike the flat panels */
+}
+
+.station-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+}
+
+.station-option + .station-option {
+  border-top: 1px solid var(--color-divider);
+}
+
+.station-option[aria-selected='true'] {
+  background: var(--color-surface-muted);
+}
+
+.station-empty {
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text-muted);
+}
+
+/* Small rounded line-color bars, one per line serving the station */
+.line-pills {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2px;
+  min-width: 6px;
+}
+
+.line-pill {
+  width: 6px;
+  height: 18px;
+  border-radius: var(--radius-pill);
+  background: var(--pill-color);
 }
 
 .swap-button {

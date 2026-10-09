@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { UPCOMING_THRESHOLD_RANGE, useSettings, type Settings } from '@/lib/settings';
 import { stationsSorted } from '@/lib/mta/rail/staticData';
+import StationSearch from './StationSearch';
 
 const STATIONS = stationsSorted();
 
@@ -29,7 +30,7 @@ export default function App() {
   );
 }
 
-/** Origin and destination dropdowns. Each change saves immediately. */
+/** Origin and destination station searches. Each change saves immediately. */
 function RouteFields({
   settings,
   onSave,
@@ -42,9 +43,9 @@ function RouteFields({
 
   return (
     <div className="route-fields">
-      <StationSelect
-        id="origin"
+      <StationSearch
         label="From"
+        stations={STATIONS}
         value={originId}
         onChange={(id) => onSave({ originId: id })}
       />
@@ -66,9 +67,9 @@ function RouteFields({
           />
         </svg>
       </button>
-      <StationSelect
-        id="destination"
+      <StationSearch
         label="To"
+        stations={STATIONS}
         value={destinationId}
         onChange={(id) => onSave({ destinationId: id })}
       />
@@ -77,32 +78,6 @@ function RouteFields({
           Pick two different stations.
         </p>
       )}
-    </div>
-  );
-}
-
-function StationSelect(props: {
-  id: string;
-  label: string;
-  value: string | null;
-  onChange: (id: string | null) => void;
-}) {
-  return (
-    <div className="field">
-      <label htmlFor={props.id}>{props.label}</label>
-      <select
-        id={props.id}
-        className="input select"
-        value={props.value ?? ''}
-        onChange={(e) => props.onChange(e.target.value || null)}
-      >
-        <option value="">Choose a station</option>
-        {STATIONS.map((s) => (
-          <option key={s.id} value={s.id}>
-            {s.name}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }

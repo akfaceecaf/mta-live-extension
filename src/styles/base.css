@@ -31,9 +31,12 @@
   padding: 0;
 }
 
+/* Set explicitly: Chrome's own stylesheet for extension pages sets body { font-size: 75% } */
 body {
   min-height: 100vh;
   background: var(--color-surface-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-md);
 }
 
 h1,
