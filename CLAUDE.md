@@ -1,5 +1,8 @@
 # CLAUDE.md
 
+Mode: ai-eng
+
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project
@@ -18,6 +21,7 @@ npm run dev        # watch-build both Vite configs into dist/ (runs in parallel 
 npm run build      # production build into dist/
 npm run typecheck  # tsc --noEmit (TypeScript 7)
 npm run gtfs:sync  # re-download MTA's static timetable → src/lib/mta/rail/static.json (commit the result)
+npm run icons      # render assets/icon.svg → public/icons/icon-{16,32,48,128}.png (commit the result)
 ```
 
 No test runner or linter is set up yet.
@@ -50,6 +54,8 @@ Loading the extension: `chrome://extensions` → Developer mode → **Load unpac
 
 **Live data flow:** content `useLiveTrip(originId, destinationId)` sends `GET_TRIP` on mount, every 30s while the tab is visible, and when the tab becomes visible again. → `background.ts` fetches and decodes the feed (cached in memory for 30s and shared by concurrent requests, so many tabs make one fetch) and runs `findDepartures`. → It replies `{ ok, trip, updatedAt }` or `{ ok: false, error }`. On an error the popup keeps the last good data and says it's retrying. The popup handles four states: no route chosen, loading, error, and no trains.
 
+**Extension icon:** `assets/icon.svg` (MTA-blue circle with a white train) is the source. Chrome needs PNGs for extension and toolbar icons, so `scripts/build-icons.ts` renders them with `@resvg/resvg-js` (dev-only) into `public/icons/`, and `manifest.json` references them under `icons` and `action.default_icon`. XML comments in the SVG can't contain `--`.
+
 **Planned WXT migration:** the `src/entrypoints/` layout follows WXT's naming conventions on purpose. Keep new entry points in that pattern. [README.md](README.md) lists the migration steps.
 
 ## UI design
@@ -67,11 +73,11 @@ Loading the extension: `chrome://extensions` → Developer mode → **Load unpac
 - Required details per train: origin → destination, peak/off-peak, track, departure time (red, `--color-departing-soon`, if departing soon).
 
 **In-page popup** (`src/entrypoints/content/`): white rounded card, 320px wide, top-right corner. On windows under 480px it stretches across the top.
-- **Collapsible:** the hide button slides the popup off the right edge and leaves a blue tab at the screen edge. Clicking the tab brings it back. The collapsed state is saved with `useStoredState('ui.collapsed')`, so it's shared across tabs and survives reloads. The component renders nothing until the saved state loads, which avoids a flash of the wrong state.
-- **Upcoming train:** a departure within the user's **"departing soon" setting** (`upcomingThresholdMin`, default **30 min**, range 1–120, set on the options page) shows its time and countdown in red. While one exists, the collapsed tab shakes briefly every 4s and shows a red dot. The dot is the cue that remains when the user has reduced motion turned on.
-- **Layout:** header (origin → destination, hide button), departure cards (`components/DepartureCard.tsx`) on the gray list background, a "View N more" / "Show less" toggle, and a footer. **Compact by default:** only the next train shows, so the popup takes little screen space. "View more" expands to at most 5 departures, scrolling if needed. The expanded state is per page (not saved), so every page starts compact. Trains that have already left are dropped. `useNow()` re-renders at each minute boundary so countdowns stay current.
-- State is driven by `data-collapsed` / `data-upcoming` attributes on `.mta-live`, so CSS handles all the visuals. The shake animates `translate` so it doesn't conflict with the slide, which animates `transform`.
+- **Collapsible:** the hide button slides the popup off the right edge and leaves a small MTA-blue tab (36×44) with a white outlined train icon at the screen edge. Clicking the tab brings it back. The collapsed state is saved with `useStoredState('ui.collapsed')`, so it's shared across tabs and survives reloads. The component renders nothing until the saved state loads, which avoids a flash of the wrong state.
+- **Upcoming train:** a departure within the user's **"departing soon" setting** (`upcomingThresholdMin`, default **30 min**, range 1–120, set on the options page) shows its time and countdown in red. While one exists, the collapsed tab shows a red dot on its top-left corner (`top: -2px; left: -3px`), poking out past the tab. When hidden, the tab slides past the screen edge by its width **plus the dot's overhang** (`--dot-offset-x` + `--dot-ring`), so the dot doesn't linger at the edge at the end of the expand transition. Change those variables together. **No shake animation:** it was removed because it was distracting.
+- **Layout:** header (origin → destination, hide button, tight 4px vertical padding), departure cards (`components/DepartureCard.tsx`) on the gray list background, and a single footer row with "Live · Updated" on the left and "View N more" / "Show less" on the right. Each card has **two rows**: (1) time range, duration, track; (2) line badge (terminal name, truncated with "…" if long), peak/off-peak, countdown. Both rows use an 8px gap (`--space-2`) and `align-items: center`, so the smaller duration and track text is vertically centered on the larger departure time. This keeps the compact popup a wide rectangle (about 320×156). **Compact by default:** only the next train shows, so the popup takes little screen space. "View more" expands to at most 5 departures, scrolling if needed. The expanded state is per page (not saved), so every page starts compact. Trains that have already left are dropped. `useNow()` re-renders at each minute boundary so countdowns stay current.
+- State is driven by `data-collapsed` / `data-upcoming` attributes on `.mta-live`, so CSS handles all the visuals.
 
 ## Revisit later
 
-- **Collapsed tab design:** make it more obviously a *train* notification (the current blue tab with a chevron doesn't say "train"), and make it take up less of the screen.
+- **Collapsed tab design:** now an MTA-blue tab with a white train icon (36×44) and a red dot instead of a shake. Revisit whether it's subtle and clear enough in daily use.

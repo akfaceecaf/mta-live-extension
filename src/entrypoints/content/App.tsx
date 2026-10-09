@@ -6,7 +6,7 @@ import { sendMessage } from '@/lib/messaging';
 import { stationName } from '@/lib/mta/rail/staticData';
 import { formatTime, isUpcoming, minutesUntil } from '@/lib/trains/format';
 import DepartureCard from './components/DepartureCard';
-import { ArrowIcon, ChevronIcon } from './components/Icons';
+import { ArrowIcon, ChevronIcon, TrainIcon } from './components/Icons';
 import { useLiveTrip } from './useLiveTrip';
 
 export default function App() {
@@ -92,27 +92,29 @@ export default function App() {
 
         <div className="departures">{body}</div>
 
-        {moreCount > 0 && (
-          <button
-            type="button"
-            className="view-more"
-            aria-expanded={showAll}
-            aria-controls="mta-live-departures"
-            onClick={() => setShowAll(!showAll)}
-          >
-            {showAll ? 'Show less' : `View ${moreCount} more`}
-            <ChevronIcon direction={showAll ? 'up' : 'down'} />
-          </button>
-        )}
-
-        {hasRoute && (live.updatedAt || live.error) && (
-          <footer className="popup-footer text-muted">
-            {live.error ? (
-              "Couldn't reach MTA · retrying"
-            ) : (
-              <>
-                Live · Updated <span className="numeric">{formatTime(live.updatedAt!)}</span>
-              </>
+        {/* Status and "View more" share one row to keep the popup short */}
+        {hasRoute && (live.updatedAt || live.error || moreCount > 0) && (
+          <footer className="row popup-footer">
+            <span className="footer-status text-muted">
+              {live.error ? (
+                "Couldn't reach MTA · retrying"
+              ) : live.updatedAt ? (
+                <>
+                  Live · Updated <span className="numeric">{formatTime(live.updatedAt)}</span>
+                </>
+              ) : null}
+            </span>
+            {moreCount > 0 && (
+              <button
+                type="button"
+                className="view-more push"
+                aria-expanded={showAll}
+                aria-controls="mta-live-departures"
+                onClick={() => setShowAll(!showAll)}
+              >
+                {showAll ? 'Show less' : `View ${moreCount} more`}
+                <ChevronIcon direction={showAll ? 'up' : 'down'} />
+              </button>
             )}
           </footer>
         )}
@@ -126,7 +128,7 @@ export default function App() {
         inert={!collapsed}
         onClick={() => setCollapsed(false)}
       >
-        <ChevronIcon direction="left" />
+        <TrainIcon size={20} />
         {hasUpcoming && <span className="tab-dot" aria-hidden="true" />}
       </button>
     </div>

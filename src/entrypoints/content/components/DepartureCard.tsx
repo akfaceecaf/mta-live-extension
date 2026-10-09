@@ -24,16 +24,15 @@ export default function DepartureCard({ departure, now, upcomingThresholdMin }: 
         <span className="card-track numeric push">Track {departure.track ?? 'TBD'}</span>
       </div>
 
-      <span
-        className="badge"
-        style={{ '--badge-color': LINE_COLORS[departure.line] } as CSSProperties}
-        title={`${departure.lineName} Line · Train ${departure.id}`}
-      >
-        <TrainIcon />
-        {departure.terminal}
-      </span>
-
       <div className="row card-bottom">
+        <span
+          className="badge"
+          style={{ '--badge-color': LINE_COLORS[departure.line] } as CSSProperties}
+          title={`${departure.lineName} Line · Train ${departure.id}`}
+        >
+          <TrainIcon />
+          <span className="badge-label">{departure.terminal}</span>
+        </span>
         <span className="card-peak" data-peak={departure.peak}>
           {departure.peak ? 'Peak' : 'Off Peak'}
         </span>

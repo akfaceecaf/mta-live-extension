@@ -37,9 +37,9 @@ export function ArrowIcon() {
   );
 }
 
-export function TrainIcon() {
+export function TrainIcon({ size = 12 }: { size?: number }) {
   return (
-    <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden="true">
       <rect x="3" y="1.5" width="10" height="10.5" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
       <path d="M3.5 7h9" stroke="currentColor" strokeWidth="1.6" />
       <circle cx="6" cy="9.6" r="0.9" fill="currentColor" />

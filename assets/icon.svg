@@ -1,0 +1,11 @@
+<!-- Toolbar / extension icon source. Edit this, then run `npm run icons` to regenerate the PNGs. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- MTA blue circle (same as the mta-blue design token) -->
+  <circle cx="64" cy="64" r="64" fill="#0039A6"/>
+  <!-- Train: same shape as the in-page TrainIcon, drawn solid so it reads at 16px -->
+  <rect x="38" y="24" width="52" height="60" rx="13" fill="#FFFFFF"/>
+  <rect x="47" y="34" width="34" height="20" rx="4" fill="#0039A6"/>
+  <circle cx="52" cy="70" r="5.5" fill="#0039A6"/>
+  <circle cx="76" cy="70" r="5.5" fill="#0039A6"/>
+  <path d="M51 86 L42 103 M77 86 L86 103" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+</svg>

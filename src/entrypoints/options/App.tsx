@@ -146,7 +146,7 @@ function ThresholdField({ value, onSave }: { value: number; onSave: (minutes: nu
         <span className="text-muted">minutes</span>
       </div>
       <p id="upcoming-threshold-hint" className="hint text-muted">
-        Trains leaving within this time show in red, and the collapsed tab shakes.
+        Trains leaving within this time show in red, and the collapsed tab shows a red dot.
       </p>
     </div>
   );

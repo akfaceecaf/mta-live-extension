@@ -90,7 +90,7 @@
   --popup-width: 320px;
   --popup-offset: 16px; /* distance from the viewport corner */
   --tab-width: 36px; /* collapsed side tab */
-  --tab-height: 56px;
+  --tab-height: 44px;
   --page-max-width: 640px;
   --z-popup: 2147483647; /* max z-index: stay above anything the host page renders */
 }

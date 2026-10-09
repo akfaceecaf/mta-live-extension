@@ -32,6 +32,7 @@ After a code change, `npm run dev` rebuilds automatically, but **Chrome doesn't 
 | `npm run build` | Production build into `dist/` |
 | `npm run typecheck` | Type-check without building |
 | `npm run gtfs:sync` | Refresh the MTA timetable snapshot |
+| `npm run icons` | Regenerate the extension icon PNGs from `assets/icon.svg` |
 
 ## How it fits together
 

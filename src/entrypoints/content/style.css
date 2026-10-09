@@ -38,7 +38,7 @@
 
 .popup-header {
   flex-wrap: nowrap;
-  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -78,14 +78,25 @@
   font-size: var(--text-sm);
 }
 
-/* "View N more" / "Show less" toggle under the next train */
+/* Footer row: "Live · Updated" on the left, "View N more" / "Show less" on the right */
+.popup-footer {
+  flex-wrap: nowrap;
+  min-height: 32px;
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer-status {
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
 .view-more {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-4);
-  border-top: 1px solid var(--color-border);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
   color: var(--color-brand);
   font-size: var(--text-sm);
   font-weight: var(--weight-semibold);
@@ -96,19 +107,12 @@
   background: var(--color-surface-muted);
 }
 
-.popup-footer {
-  padding: var(--space-2) var(--space-4);
-  border-top: 1px solid var(--color-border);
-  font-size: var(--text-xs);
-}
-
 /* ---- Departure card ---- */
 .card {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--space-2);
-  padding: var(--space-3);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-md);
   background: var(--color-surface);
 }
@@ -116,8 +120,8 @@
 .card .row {
   align-self: stretch;
   flex-wrap: nowrap;
-  align-items: baseline;
-  --row-gap: var(--space-1);
+  align-items: center; /* duration and track center on the larger departure time */
+  --row-gap: var(--space-2);
 }
 
 .card-time {
@@ -133,6 +137,18 @@
 .card-countdown {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* Badge, peak and countdown share one row; long terminal names get "…" */
+.card-bottom .badge {
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.badge-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -168,6 +184,10 @@
 
 /* ---- Collapsed: popup slides off the right edge, tab slides in ---- */
 .tab {
+  /* How far the red dot pokes out past the tab's left edge (see .tab-dot) */
+  --dot-offset-x: 3px;
+  --dot-offset-y: 2px;
+  --dot-ring: 2px;
   position: absolute;
   top: 0;
   right: 0;
@@ -176,10 +196,12 @@
   width: var(--tab-width);
   height: var(--tab-height);
   border-radius: var(--radius-md) 0 0 var(--radius-md);
-  background: var(--color-brand);
+  background: var(--color-brand); /* MTA blue tab, white outlined train icon */
   color: var(--color-text-inverse);
   box-shadow: var(--shadow-card);
-  transform: translateX(100%);
+  /* Hidden: slide past the screen edge by the tab's width plus the dot's overhang,
+     so the dot isn't left showing at the edge at the end of the slide */
+  transform: translateX(calc(100% + var(--dot-offset-x) + var(--dot-ring)));
   visibility: hidden;
 }
 
@@ -197,39 +219,16 @@
   visibility: visible;
 }
 
-/* ---- Upcoming train: tab shakes briefly every few seconds ---- */
-/* Uses `translate` (not `transform`) so it doesn't fight the slide transition */
-.mta-live[data-collapsed='true'][data-upcoming='true'] .tab {
-  animation: tab-shake 4s var(--duration-slow) infinite;
-}
-
-@keyframes tab-shake {
-  0%,
-  12%,
-  100% {
-    translate: 0;
-  }
-  2%,
-  6%,
-  10% {
-    translate: -4px;
-  }
-  4%,
-  8% {
-    translate: 3px;
-  }
-}
-
-/* Red dot also signals an upcoming train when motion is reduced (base.css turns animations off) */
+/* ---- Upcoming train: red dot on the tab's top-left corner, half outside the tab ---- */
 .tab-dot {
   position: absolute;
-  top: 6px;
-  left: 6px;
+  top: calc(-1 * var(--dot-offset-y));
+  left: calc(-1 * var(--dot-offset-x));
   width: 8px;
   height: 8px;
   border-radius: var(--radius-pill);
   background: var(--color-departing-soon);
-  box-shadow: 0 0 0 2px var(--color-surface);
+  box-shadow: 0 0 0 var(--dot-ring) var(--color-surface);
 }
 
 /* ---- Narrow windows: popup spans the top so it never goes off-screen ---- */

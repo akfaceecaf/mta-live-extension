@@ -5,7 +5,7 @@ export interface Settings {
   /** Station IDs (static GTFS stop_id) of the route to track. null until the user picks one. */
   originId: string | null;
   destinationId: string | null;
-  /** A departure within this many minutes counts as "departing soon": red time, shaking tab */
+  /** A departure within this many minutes counts as "departing soon": red time, red dot on the collapsed tab */
   upcomingThresholdMin: number;
 }
 

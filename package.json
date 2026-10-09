@@ -9,7 +9,8 @@
     "dev": "npm run clean && concurrently -k -n pages,content \"vite build --watch --mode development\" \"vite build --watch --mode development -c vite.content.config.ts\"",
     "build": "npm run clean && vite build && vite build -c vite.content.config.ts",
     "typecheck": "tsc --noEmit",
-    "gtfs:sync": "node scripts/sync-gtfs.ts"
+    "gtfs:sync": "node scripts/sync-gtfs.ts",
+    "icons": "node scripts/build-icons.ts"
   },
   "dependencies": {
     "gtfs-realtime-bindings": "^2.2.0",
@@ -18,6 +19,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "@types/chrome": "^0.3.4",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
