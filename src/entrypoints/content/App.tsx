@@ -77,7 +77,7 @@ export default function App() {
                 <span>{stationName(destinationId!)}</span>
               </>
             ) : (
-              'MTA Live'
+              "Where's My Train At?"
             )}
           </h2>
           <button
@@ -103,6 +103,19 @@ export default function App() {
                   Live · Updated <span className="numeric">{formatTime(live.updatedAt)}</span>
                 </>
               ) : null}
+            </span>
+            {/* MTA data terms require saying the data may not be real time and that we're not MTA-licensed */}
+            <button
+              type="button"
+              className="info-button"
+              aria-label="About this data"
+              aria-describedby="mta-live-disclaimer"
+            >
+              ?
+            </button>
+            <span id="mta-live-disclaimer" role="tooltip" className="info-tooltip">
+              Unofficial app, not affiliated with or endorsed by the MTA. Data comes from MTA's
+              public feeds and may not be real time, accurate, or complete.
             </span>
             {moreCount > 0 && (
               <button

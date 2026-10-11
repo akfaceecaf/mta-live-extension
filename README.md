@@ -1,8 +1,12 @@
-# MTA Live
+# Where's My Train At?
 
-A Chrome extension that shows a live display of upcoming Metro-North train times on any page.
+A Chrome extension (beta) that shows upcoming Metro-North train times on any page. Unofficial: not affiliated with, endorsed by, or licensed by the MTA. Train data may not be real time, accurate, or complete.
 
 **Stack:** React 19, TypeScript, Vite (no extension framework, on purpose, to learn how Chrome extensions work), Manifest V3.
+
+## Privacy
+
+Where's My Train At? collects no personal data. Your stations and settings are stored only in your browser (chrome.storage.local) and are never sent anywhere. The extension's only network request fetches public Metro-North train data, and it includes no information about you or the pages you visit.
 
 ## Getting started
 

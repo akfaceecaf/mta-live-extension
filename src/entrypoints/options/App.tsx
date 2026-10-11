@@ -12,7 +12,7 @@ export default function App() {
 
   return (
     <main className="page stack">
-      <h1>MTA Live Settings</h1>
+      <h1>Settings</h1>
 
       <section className="panel stack">
         <h2>Route</h2>
@@ -25,6 +25,17 @@ export default function App() {
           value={settings.upcomingThresholdMin}
           onSave={(upcomingThresholdMin) => updateSettings({ upcomingThresholdMin })}
         />
+      </section>
+
+      <section className="panel stack">
+        <h2>About</h2>
+        <p className="hint text-muted">
+          Where's My Train At? is an unofficial app. It is not affiliated with, endorsed by, or
+          licensed by the Metropolitan Transportation Authority (MTA) or Metro-North Railroad.
+          Train information comes from MTA's public Metro-North GTFS and GTFS-Realtime feeds and
+          may not be real time, accurate, or complete. Check official MTA sources before you
+          travel.
+        </p>
       </section>
     </main>
   );

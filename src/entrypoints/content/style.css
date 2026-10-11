@@ -80,6 +80,7 @@
 
 /* Footer row: "Live · Updated" on the left, "View N more" / "Show less" on the right */
 .popup-footer {
+  position: relative; /* anchors .info-tooltip, which opens upward because .popup clips overflow */
   flex-wrap: nowrap;
   min-height: 32px;
   padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
@@ -89,6 +90,50 @@
 .footer-status {
   font-size: var(--text-xs);
   white-space: nowrap;
+}
+
+.info-button {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-left: calc(var(--space-1) / 2);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-size: 10px;
+  line-height: 1;
+  cursor: default; /* not clickable, so the plain arrow, not the hand */
+}
+
+.info-button:hover {
+  color: var(--color-text);
+}
+
+.info-tooltip {
+  position: absolute;
+  left: var(--space-2);
+  right: var(--space-2);
+  bottom: calc(100% + var(--space-1));
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  white-space: normal;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--duration-fast),
+    visibility var(--duration-fast);
+}
+
+.info-button:hover + .info-tooltip,
+.info-button:focus-visible + .info-tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 .view-more {
