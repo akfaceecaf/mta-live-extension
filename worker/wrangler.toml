@@ -1,0 +1,9 @@
+name = "wheres-my-train-at-relay"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+# No stored request logs: the relay sees users' IP addresses, and the privacy
+# policy promises it doesn't keep them. Use `npx wrangler tail` to watch live.
+[observability]
+enabled = false

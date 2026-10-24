@@ -34,5 +34,5 @@
     }
   },
   "permissions": ["storage"],
-  "host_permissions": ["https://api-endpoint.mta.info/*"]
+  "host_permissions": ["https://wheres-my-train-at-relay.wheresmytrainat.workers.dev/*"]
 }

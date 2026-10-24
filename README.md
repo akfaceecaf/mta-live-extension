@@ -6,7 +6,7 @@ A Chrome extension (beta) that shows upcoming Metro-North train times on any pag
 
 ## Privacy
 
-Where's My Train At? collects no personal data. Your stations and settings are stored only in your browser (chrome.storage.local) and are never sent anywhere. The extension's only network request fetches public Metro-North train data, and it includes no information about you or the pages you visit.
+Where's My Train At? collects no personal data. Your stations and settings are stored only in your browser (chrome.storage.local) and are never sent anywhere. The extension's only network request fetches public Metro-North train data, and it includes no information about you or the pages you visit. Requests go through the developer's relay server, which doesn't store logs.
 
 ## Getting started
 
@@ -34,9 +34,12 @@ After a code change, `npm run dev` rebuilds automatically, but **Chrome doesn't 
 | --- | --- |
 | `npm run dev` | Watch mode build into `dist/` |
 | `npm run build` | Production build into `dist/` |
-| `npm run typecheck` | Type-check without building |
+| `npm run package` | Build, then zip `dist/` into `mta-live-<version>.zip` for the Chrome Web Store |
+| `npm run typecheck` | Type-check the extension and `worker/` without building |
 | `npm run gtfs:sync` | Refresh the MTA timetable snapshot |
 | `npm run icons` | Regenerate the extension icon PNGs from `assets/icon.svg` |
+
+The feed relay lives in `worker/` (a Cloudflare Worker). Run `npm install` there once, then `npm run dev` to try it locally or `npm run deploy` to publish it.
 
 ## How it fits together
 
@@ -71,7 +74,7 @@ There are two Vite configs because Chrome loads content scripts as classic scrip
 
 Two MTA sources, neither needs an API key:
 
-- **Live:** the Metro-North [GTFS-Realtime feed](https://api.mta.info/), which has predicted departure and arrival times and tracks for trains running in the next few hours. The background worker fetches it at most every 30 seconds.
+- **Live:** the Metro-North [GTFS-Realtime feed](https://api.mta.info/), which has predicted departure and arrival times and tracks for trains running in the next few hours. The background worker fetches it at most every 30 seconds, through a small relay in `worker/` (MTA's terms require serving the feed from a non-MTA server).
 - **Timetable:** MTA's static GTFS zip, used for station names, line names and peak/off-peak. `npm run gtfs:sync` turns it into a small `src/lib/mta/rail/static.json` that ships with the extension. Re-run it when MTA publishes a new schedule.
 
 ## Migrating to WXT later

@@ -1,6 +1,6 @@
 # Chrome Web Store listing: Where's My Train At?
 
-Answers for the Chrome Developer Dashboard, ready to paste. Written for **v0.0.2 beta**, the build that fetches train data through the Cloudflare Worker relay (MTA developer terms Item 1). Before submitting, replace `<worker>` with the deployed worker URL.
+Answers for the Chrome Developer Dashboard, ready to paste. Written for **v0.0.2 beta**, the build that fetches train data through the Cloudflare Worker relay (MTA developer terms Item 1).
 
 ## Package
 
@@ -64,7 +64,7 @@ Shows upcoming Metro-North train departures for the user's chosen route in a sma
 Saves the user's From/To stations, "departing soon" minutes, and whether the popup is collapsed, locally on the device so settings persist and stay in sync across tabs.
 ```
 
-**Host permission justification: `https://<worker>.workers.dev/*`**
+**Host permission justification: `https://wheres-my-train-at-relay.wheresmytrainat.workers.dev/*`**
 
 ```
 Fetches Metro-North train times (MTA's public GTFS-Realtime feed, relayed by the developer's server) from the background service worker. No user data is sent.
@@ -92,7 +92,7 @@ All JavaScript is included in the package. The only network response is protobuf
 **Privacy policy URL:** `https://github.com/akfaceecaf/mta-live-extension#privacy` (the README's Privacy section has this text):
 
 ```
-Where's My Train At? collects no personal data. Your stations and settings are stored only in your browser (chrome.storage.local) and are never sent anywhere. The extension's only network request fetches public Metro-North train data, and it includes no information about you or the pages you visit.
+Where's My Train At? collects no personal data. Your stations and settings are stored only in your browser (chrome.storage.local) and are never sent anywhere. The extension's only network request fetches public Metro-North train data, and it includes no information about you or the pages you visit. Requests go through the developer's relay server, which doesn't store logs.
 ```
 
 ## Distribution

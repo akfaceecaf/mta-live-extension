@@ -1,0 +1,14 @@
+{
+  "name": "wheres-my-train-at-relay",
+  "private": true,
+  "description": "Cloudflare Worker that relays MTA's Metro-North GTFS-Realtime feed for the extension",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types"
+  },
+  "devDependencies": {
+    "wrangler": "^4.152.0"
+  }
+}

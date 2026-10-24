@@ -3,5 +3,5 @@
 export const env = {
   mtaMnrFeedUrl:
     import.meta.env.VITE_MTA_MNR_FEED_URL ??
-    'https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/mnr%2Fgtfs-mnr',
+    "https://wheres-my-train-at-relay.wheresmytrainat.workers.dev/mnr",
 } as const;
