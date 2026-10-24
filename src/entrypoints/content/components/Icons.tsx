@@ -37,6 +37,22 @@ export function ArrowIcon() {
   );
 }
 
+/** Down arrow and up arrow side by side: swap origin and destination */
+export function SwapIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path
+        d="M5 2v11M2 10l3 3 3-3M11 14V3M8 6l3-3 3 3"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function TrainIcon({ size = 12 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 16 16" aria-hidden="true">

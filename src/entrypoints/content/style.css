@@ -213,6 +213,8 @@
 }
 
 .icon-button {
+  /* Keep header buttons full size when a long route name wraps */
+  flex-shrink: 0;
   display: inline-grid;
   place-items: center;
   width: 28px;
@@ -225,6 +227,12 @@
 .icon-button:hover {
   background: var(--color-surface-muted);
   color: var(--color-text);
+}
+
+/* Same blue as the route arrow it sits next to */
+.swap-button,
+.swap-button:hover {
+  color: var(--color-brand);
 }
 
 /* ---- Collapsed: popup slides off the right edge, tab slides in ---- */

@@ -6,12 +6,12 @@ import { sendMessage } from '@/lib/messaging';
 import { stationName } from '@/lib/mta/rail/staticData';
 import { formatTime, isUpcoming, minutesUntil } from '@/lib/trains/format';
 import DepartureCard from './components/DepartureCard';
-import { ArrowIcon, ChevronIcon, TrainIcon } from './components/Icons';
+import { ArrowIcon, ChevronIcon, SwapIcon, TrainIcon } from './components/Icons';
 import { useLiveTrip } from './useLiveTrip';
 
 export default function App() {
   const [collapsed, setCollapsed, collapsedLoaded] = useStoredState('ui.collapsed', false);
-  const [settings, , settingsLoaded] = useSettings();
+  const [settings, updateSettings, settingsLoaded] = useSettings();
   // Compact by default: only the next train. Resets on each page so the popup stays small.
   const [showAll, setShowAll] = useState(false);
   const now = useNow();
@@ -80,6 +80,18 @@ export default function App() {
               "Where's My Train At?"
             )}
           </h2>
+          {/* Saves to settings, so every tab and the options page flip too (e.g. the ride home) */}
+          {hasRoute && (
+            <button
+              type="button"
+              className="icon-button swap-button"
+              aria-label="Swap origin and destination"
+              title="Swap"
+              onClick={() => updateSettings({ originId: destinationId, destinationId: originId })}
+            >
+              <SwapIcon />
+            </button>
+          )}
           <button
             type="button"
             className="icon-button push"
